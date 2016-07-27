@@ -131,6 +131,19 @@ class LoginController: UIViewController {
         return imageView
     }()
     
+    let loginRegisterSegmentedController: UISegmentedControl = {
+        let sc = UISegmentedControl(items: ["Login", "Register"])
+        sc.translatesAutoresizingMaskIntoConstraints = false
+        sc.tintColor = UIColor.whiteColor()
+        sc.selectedSegmentIndex = 1
+        sc.addTarget(nil, action: #selector(handleLoginRegisterChange), forControlEvents: .ValueChanged)
+        return sc
+    }()
+    
+    func handleLoginRegisterChange() {
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,16 +153,25 @@ class LoginController: UIViewController {
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
         view.addSubview(profileImage)
+        view.addSubview(loginRegisterSegmentedController)
         
         setupInputContainerView()
         setupLoginRegisterButton()
         setupProfileImageView()
+        setupLoginRegisterSegmentedController()
         
+    }
+    
+    func setupLoginRegisterSegmentedController() {
+        loginRegisterSegmentedController.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
+        loginRegisterSegmentedController.bottomAnchor.constraintEqualToAnchor(inputsContainerView.topAnchor, constant: -12).active = true
+        loginRegisterSegmentedController.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor, multiplier: 0.5).active = true
+        loginRegisterSegmentedController.heightAnchor.constraintEqualToConstant(36).active = true
     }
     
     func setupProfileImageView() {
         profileImage.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        profileImage.bottomAnchor.constraintEqualToAnchor(inputsContainerView.topAnchor, constant: -12).active = true
+        profileImage.bottomAnchor.constraintEqualToAnchor(loginRegisterSegmentedController.topAnchor, constant: -12).active = true
         profileImage.widthAnchor.constraintEqualToConstant(150).active = true
         profileImage.heightAnchor.constraintEqualToConstant(150).active = true
     }
