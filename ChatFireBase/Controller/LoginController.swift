@@ -32,9 +32,16 @@ class LoginController: UIViewController {
     let nameTextField: UITextField = {
        let tf = UITextField()
         tf.placeholder = "Name"
-        tf.clearsOnBeginEditing = true
+        tf.clearButtonMode = .WhileEditing
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
+    }()
+    
+    let nameSeparatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(r: 220, g: 220, b: 220)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     override func viewDidLoad() {
@@ -44,15 +51,11 @@ class LoginController: UIViewController {
         
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
-        view.addSubview(nameTextField)
         
         setupInputContainerView()
         setupLoginRegisterButton()
         
-        nameTextField.leftAnchor.constraintEqualToAnchor(inputsContainerView.leftAnchor, constant: 12).active = true
-        nameTextField.topAnchor.constraintEqualToAnchor(inputsContainerView.topAnchor).active = true
-        nameTextField.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
-        nameTextField.heightAnchor.constraintEqualToAnchor(inputsContainerView.heightAnchor, multiplier: 1/3).active = true
+        
     }
     
     func setupInputContainerView() {
@@ -61,6 +64,21 @@ class LoginController: UIViewController {
         inputsContainerView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor).active = true
         inputsContainerView.widthAnchor.constraintEqualToAnchor(view.widthAnchor, constant: -24).active = true
         inputsContainerView.heightAnchor.constraintEqualToConstant(150).active = true
+        
+        inputsContainerView.addSubview(nameTextField)
+        inputsContainerView.addSubview(nameSeparatorView)
+        
+        
+        nameTextField.leftAnchor.constraintEqualToAnchor(inputsContainerView.leftAnchor, constant: 12).active = true
+        nameTextField.topAnchor.constraintEqualToAnchor(inputsContainerView.topAnchor).active = true
+        nameTextField.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
+        nameTextField.heightAnchor.constraintEqualToAnchor(inputsContainerView.heightAnchor, multiplier: 1/3).active = true
+        
+    
+        nameSeparatorView.leftAnchor.constraintEqualToAnchor(inputsContainerView.leftAnchor).active = true
+        nameSeparatorView.topAnchor.constraintEqualToAnchor(nameTextField.bottomAnchor).active = true
+        nameSeparatorView.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
+        nameSeparatorView.heightAnchor.constraintEqualToConstant(1).active = true
     }
     
     func setupLoginRegisterButton() {
