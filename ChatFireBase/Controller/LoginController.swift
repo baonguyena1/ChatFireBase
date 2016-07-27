@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import MBProgressHUD
 
 class LoginController: UIViewController {
     
@@ -26,14 +28,57 @@ class LoginController: UIViewController {
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFontOfSize(16)
+        
+        button.addTarget(nil, action: #selector(handleRegister), forControlEvents: .TouchUpInside)
+        
         return button
     }()
+    
+    func handleRegister() {
+        guard let email = emailTextField.text, password = passwordTextField.text, name = nameTextField.text else {
+            print("Form is not valid")
+            return
+        }
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.mode = .Indeterminate
+        hud.activityIndicatorColor = UIColor.redColor()
+        hud.color = UIColor.whiteColor()
+        hud.labelText = "Loading..."
+        hud.labelColor = UIColor.grayColor()
+        FIRAuth.auth()?.createUserWithEmail(email, password: password, completion: { (user:FIRUser?, error: NSError?) in
+            if (error != nil) {
+                print(error)
+                hud.hide(true)
+                return
+            }
+            
+            guard let uid = user?.uid else {
+                return
+            }
+            
+            let ref = FIRDatabase.database().referenceFromURL("https://chatfirebase-21cad.firebaseio.com/")
+            let usersReference = ref.child("users").child( uid)
+            let values = ["name": name, "email": email]
+            usersReference.updateChildValues(values, withCompletionBlock: { (err,
+                ref) in
+                if (err != nil) {
+                    print(err)
+                    hud.hide(true)
+                    return
+                }
+                print("Add user susseccfully into FireBase DB")
+                hud.hide(true)
+            })
+            
+        })
+    }
     
     let nameTextField: UITextField = {
        let tf = UITextField()
         tf.placeholder = "Name"
         tf.clearButtonMode = .WhileEditing
         tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.autocorrectionType = .No
         return tf
     }()
     
@@ -50,6 +95,7 @@ class LoginController: UIViewController {
         tf.clearButtonMode = .WhileEditing
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.keyboardType = .EmailAddress
+        tf.autocorrectionType = .No
         return tf
     }()
     
@@ -66,6 +112,7 @@ class LoginController: UIViewController {
         tf.clearButtonMode = .WhileEditing
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.secureTextEntry = true
+        tf.autocorrectionType = .No
         return tf
     }()
     
