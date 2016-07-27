@@ -13,6 +13,7 @@
 		836E28161D485FDA006558D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 836E28141D485FDA006558D9 /* LaunchScreen.storyboard */; };
 		836E281F1D4861E5006558D9 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836E281E1D4861E5006558D9 /* LoginController.swift */; };
 		836E28211D487B24006558D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836E28201D487B24006558D9 /* ViewController.swift */; };
+		BF9BBD581D48E7A200B808C6 /* heart.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF9BBD571D48E7A200B808C6 /* heart.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		836E28171D485FDA006558D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		836E281E1D4861E5006558D9 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		836E28201D487B24006558D9 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BF9BBD571D48E7A200B808C6 /* heart.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = heart.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				836E280B1D485FDA006558D9 /* AppDelegate.swift */,
 				836E280F1D485FDA006558D9 /* Main.storyboard */,
 				836E28121D485FDA006558D9 /* Assets.xcassets */,
+				BF9BBD571D48E7A200B808C6 /* heart.jpg */,
 				836E28141D485FDA006558D9 /* LaunchScreen.storyboard */,
 				836E28171D485FDA006558D9 /* Info.plist */,
 			);
@@ -133,6 +136,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF9BBD581D48E7A200B808C6 /* heart.jpg in Resources */,
 				836E28161D485FDA006558D9 /* LaunchScreen.storyboard in Resources */,
 				836E28131D485FDA006558D9 /* Assets.xcassets in Resources */,
 				836E28111D485FDA006558D9 /* Main.storyboard in Resources */,
