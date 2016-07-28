@@ -20,6 +20,7 @@
 		BFBF899B1D4A334A001B276C /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBF899A1D4A334A001B276C /* NewMessageController.swift */; };
 		BFBF899E1D4A3C3D001B276C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBF899D1D4A3C3D001B276C /* User.swift */; };
 		BFBF89A01D4A425D001B276C /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBF899F1D4A425D001B276C /* LoginController+handlers.swift */; };
+		BFBF89A31D4A6159001B276C /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBF89A21D4A6159001B276C /* Extentions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		BFBF899A1D4A334A001B276C /* NewMessageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		BFBF899D1D4A3C3D001B276C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BFBF899F1D4A425D001B276C /* LoginController+handlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LoginController+handlers.swift"; sourceTree = "<group>"; };
+		BFBF89A21D4A6159001B276C /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		D7C7CF8DA4CF18C7F19ACBA5 /* Pods-ChatFireBase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatFireBase.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatFireBase/Pods-ChatFireBase.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +85,7 @@
 		836E280A1D485FDA006558D9 /* ChatFireBase */ = {
 			isa = PBXGroup;
 			children = (
+				BFBF89A11D4A613E001B276C /* Helpers */,
 				BFBF899C1D4A3C33001B276C /* Models */,
 				836E28421D49C787006558D9 /* Common */,
 				836E281D1D4861D0006558D9 /* Controller */,
@@ -131,6 +134,14 @@
 				BFBF899D1D4A3C3D001B276C /* User.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BFBF89A11D4A613E001B276C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				BFBF89A21D4A6159001B276C /* Extentions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +272,7 @@
 				BFBF899B1D4A334A001B276C /* NewMessageController.swift in Sources */,
 				BFBF899E1D4A3C3D001B276C /* User.swift in Sources */,
 				836E28211D487B24006558D9 /* ViewController.swift in Sources */,
+				BFBF89A31D4A6159001B276C /* Extentions.swift in Sources */,
 				BFBF89A01D4A425D001B276C /* LoginController+handlers.swift in Sources */,
 				836E281F1D4861E5006558D9 /* LoginController.swift in Sources */,
 				836E280C1D485FDA006558D9 /* AppDelegate.swift in Sources */,
