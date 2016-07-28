@@ -19,6 +19,7 @@
 		BF9BBD5A1D48EA8600B808C6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF9BBD591D48EA8600B808C6 /* GoogleService-Info.plist */; };
 		BFBF899B1D4A334A001B276C /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBF899A1D4A334A001B276C /* NewMessageController.swift */; };
 		BFBF899E1D4A3C3D001B276C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBF899D1D4A3C3D001B276C /* User.swift */; };
+		BFBF89A01D4A425D001B276C /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBF899F1D4A425D001B276C /* LoginController+handlers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		BF9BBD591D48EA8600B808C6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFBF899A1D4A334A001B276C /* NewMessageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		BFBF899D1D4A3C3D001B276C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BFBF899F1D4A425D001B276C /* LoginController+handlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LoginController+handlers.swift"; sourceTree = "<group>"; };
 		D7C7CF8DA4CF18C7F19ACBA5 /* Pods-ChatFireBase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatFireBase.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatFireBase/Pods-ChatFireBase.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +103,7 @@
 				836E28201D487B24006558D9 /* ViewController.swift */,
 				836E281E1D4861E5006558D9 /* LoginController.swift */,
 				BFBF899A1D4A334A001B276C /* NewMessageController.swift */,
+				BFBF899F1D4A425D001B276C /* LoginController+handlers.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				BFBF899B1D4A334A001B276C /* NewMessageController.swift in Sources */,
 				BFBF899E1D4A3C3D001B276C /* User.swift in Sources */,
 				836E28211D487B24006558D9 /* ViewController.swift in Sources */,
+				BFBF89A01D4A425D001B276C /* LoginController+handlers.swift in Sources */,
 				836E281F1D4861E5006558D9 /* LoginController.swift in Sources */,
 				836E280C1D485FDA006558D9 /* AppDelegate.swift in Sources */,
 			);

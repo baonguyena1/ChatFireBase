@@ -84,21 +84,44 @@ class LoginController: UIViewController {
                 return
             }
             
-            let ref = FIRDatabase.database().referenceFromURL("https://chatfirebase-21cad.firebaseio.com/")
-            let usersReference = ref.child("users").child( uid)
-            let values = ["name": name, "email": email]
-            usersReference.updateChildValues(values, withCompletionBlock: { (err,
-                ref) in
-                if (err != nil) {
-                    print(err)
-                    Common.hideIndicator()
-                    return
-                }
-                self.dismissViewControllerAnimated(true, completion: nil)
-                Common.hideIndicator()
-            })
+            let imageName = NSUUID().UUIDString
+            let storageRef = FIRStorage.storage().reference().child("profile_images").child("\(imageName).png")
+            if let uploadData = UIImagePNGRepresentation(self.profileImage.image!) {
+                storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                    if (error != nil) {
+                        print(error)
+                        Common.hideIndicator()
+                        return
+                    }
+                    
+                    if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
+                        let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl]
+                        self.registerUserIntoDatabaseWithUID(uid, values: values)
+                    }
+                })
+            }
+            
+            
+            
             
         })
+    }
+    
+    private func registerUserIntoDatabaseWithUID(uid: String, values: [String: AnyObject]) {
+        let ref = FIRDatabase.database().referenceFromURL("https://chatfirebase-21cad.firebaseio.com/")
+        let usersReference = ref.child("users").child( uid)
+
+        usersReference.updateChildValues(values, withCompletionBlock: { (err,
+            ref) in
+            if (err != nil) {
+                print(err)
+                Common.hideIndicator()
+                return
+            }
+            self.dismissViewControllerAnimated(true, completion: nil)
+            Common.hideIndicator()
+        })
+
     }
     
     lazy var nameTextField: UITextField = {
@@ -156,6 +179,9 @@ class LoginController: UIViewController {
         imageView.image = UIImage(named: "heart.jpg")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .ScaleAspectFill
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView)))
+        imageView.userInteractionEnabled = true
+        
         return imageView
     }()
     
