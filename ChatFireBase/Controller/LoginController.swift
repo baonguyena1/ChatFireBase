@@ -12,6 +12,8 @@ import MBProgressHUD
 
 class LoginController: UIViewController {
     
+    weak var messagesController: MessagesController?
+    
     var inputsContainerViewHeightAnchor: NSLayoutConstraint?
     var nameTextFieldHeightAnchor: NSLayoutConstraint?
     var emailTextFieldHeightAnchor: NSLayoutConstraint?
@@ -60,6 +62,7 @@ class LoginController: UIViewController {
                 return
             }
             
+            self.messagesController?.fetchUserAndSetupNavBarTitle()
             self.dismissViewControllerAnimated(true, completion: { 
                 Common.hideIndicator()
             })
@@ -86,7 +89,9 @@ class LoginController: UIViewController {
             
             let imageName = NSUUID().UUIDString
             let storageRef = FIRStorage.storage().reference().child("profile_images").child("\(imageName).png")
-            if let uploadData = UIImagePNGRepresentation(self.profileImage.image!) {
+            
+            if let profileImage = self.profileImage.image, uploadData = UIImageJPEGRepresentation(profileImage, 0.1) {
+                
                 storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                     if (error != nil) {
                         print(error)
@@ -118,6 +123,10 @@ class LoginController: UIViewController {
                 Common.hideIndicator()
                 return
             }
+            
+            let user = User()
+            user.setValuesForKeysWithDictionary(values)
+            self.messagesController?.setupNavbarWithUser(user)
             self.dismissViewControllerAnimated(true, completion: nil)
             Common.hideIndicator()
         })
