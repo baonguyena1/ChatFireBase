@@ -17,6 +17,7 @@
 		836E28441D49C793006558D9 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836E28431D49C793006558D9 /* Common.swift */; };
 		836E28481D4B3710006558D9 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836E28471D4B3710006558D9 /* ChatLogController.swift */; };
 		836E284A1D4B4A48006558D9 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836E28491D4B4A48006558D9 /* Message.swift */; };
+		836E284D1D4B5AD0006558D9 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836E284C1D4B5AD0006558D9 /* UserCell.swift */; };
 		BF9BBD581D48E7A200B808C6 /* heart.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF9BBD571D48E7A200B808C6 /* heart.jpg */; };
 		BF9BBD5A1D48EA8600B808C6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF9BBD591D48EA8600B808C6 /* GoogleService-Info.plist */; };
 		BFBF899B1D4A334A001B276C /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBF899A1D4A334A001B276C /* NewMessageController.swift */; };
@@ -38,6 +39,7 @@
 		836E28431D49C793006558D9 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		836E28471D4B3710006558D9 /* ChatLogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		836E28491D4B4A48006558D9 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		836E284C1D4B5AD0006558D9 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		A3422680F6335B5412902260 /* Pods_ChatFireBase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatFireBase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF9BBD571D48E7A200B808C6 /* heart.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = heart.jpg; sourceTree = "<group>"; };
 		BF9BBD591D48EA8600B808C6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 		836E280A1D485FDA006558D9 /* ChatFireBase */ = {
 			isa = PBXGroup;
 			children = (
+				836E284B1D4B5AC4006558D9 /* Views */,
 				BFBF89A11D4A613E001B276C /* Helpers */,
 				BFBF899C1D4A3C33001B276C /* Models */,
 				836E28421D49C787006558D9 /* Common */,
@@ -122,6 +125,14 @@
 				836E28431D49C793006558D9 /* Common.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		836E284B1D4B5AC4006558D9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				836E284C1D4B5AD0006558D9 /* UserCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		ADB76AEB6831764EDAA0C7AF /* Pods */ = {
@@ -283,6 +294,7 @@
 				BFBF89A01D4A425D001B276C /* LoginController+handlers.swift in Sources */,
 				836E284A1D4B4A48006558D9 /* Message.swift in Sources */,
 				836E281F1D4861E5006558D9 /* LoginController.swift in Sources */,
+				836E284D1D4B5AD0006558D9 /* UserCell.swift in Sources */,
 				836E280C1D485FDA006558D9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

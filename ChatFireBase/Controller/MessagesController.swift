@@ -12,12 +12,16 @@ import Firebase
 class MessagesController: UITableViewController {
     
     var messages = [Message]()
+    var messageDictionary = [String: Message]()
+    let cellId = "cellId"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .Plain, target: self, action: #selector(handleLogout))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "new_message_icon"), style: .Plain, target: self, action: #selector(handleNewMessage))
+        
+        tableView.registerClass(UserCell.self, forCellReuseIdentifier: cellId)
         
         checkIfUserIsLoggedIn()
         
@@ -31,7 +35,15 @@ class MessagesController: UITableViewController {
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let message = Message()
                 message.setValuesForKeysWithDictionary(dictionary)
-                self.messages.append(message)
+//                self.messages.append(message)
+                if let toId = message.toId {
+                    self.messageDictionary[toId] = message
+                    self.messages = Array(self.messageDictionary.values)
+                    self.messages.sortInPlace({ (message1, message2) -> Bool in
+                        return message1.timestamp?.intValue > message2.timestamp?.intValue
+                    })
+                }
+                
                 dispatch_async(dispatch_get_main_queue(), { 
                     self.tableView.reloadData()
                 })
@@ -144,10 +156,10 @@ class MessagesController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell  = UITableViewCell(style: .Subtitle, reuseIdentifier: "cellId")
+        let cell  = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! UserCell
         let message = messages[indexPath.row]
-        cell.textLabel?.text = message.toId
-        cell.detailTextLabel?.text = message.text
+        
+        cell.message = message
         
         return cell
     }

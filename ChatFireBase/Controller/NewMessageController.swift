@@ -81,38 +81,3 @@ class NewMessageController: UITableViewController {
 
 }
 
-class UserCell: UITableViewCell {
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        textLabel?.frame = CGRectMake(56, textLabel!.frame.origin.y - 2, textLabel!.frame.width, textLabel!.frame.height)
-        detailTextLabel?.frame = CGRectMake(56, detailTextLabel!.frame.origin.y + 2, detailTextLabel!.frame.width, detailTextLabel!.frame.height)
-    }
-    
-    let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "heart.jpg")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 20
-        imageView.layer.masksToBounds = true
-        imageView.contentMode = .ScaleAspectFill
-        return imageView
-    }()
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: .Subtitle, reuseIdentifier: reuseIdentifier)
-        
-        addSubview(profileImageView)
-
-        profileImageView.leftAnchor.constraintLessThanOrEqualToAnchor(self.leftAnchor, constant: 8).active = true
-        profileImageView.centerYAnchor.constraintLessThanOrEqualToAnchor(self.centerYAnchor).active = true
-        profileImageView.widthAnchor.constraintEqualToConstant(40).active = true
-        profileImageView.heightAnchor.constraintEqualToConstant(40).active = true
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}

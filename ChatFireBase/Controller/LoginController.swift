@@ -113,7 +113,7 @@ class LoginController: UIViewController {
     }
     
     private func registerUserIntoDatabaseWithUID(uid: String, values: [String: AnyObject]) {
-        let ref = FIRDatabase.database().referenceFromURL("https://chatfirebase-21cad.firebaseio.com/")
+        let ref = FIRDatabase.database().reference()
         let usersReference = ref.child("users").child( uid)
 
         usersReference.updateChildValues(values, withCompletionBlock: { (err,
