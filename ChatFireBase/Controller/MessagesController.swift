@@ -25,7 +25,42 @@ class MessagesController: UITableViewController {
         
         checkIfUserIsLoggedIn()
         
-        observeMessage()
+//        observeMessage()
+        obseverUserMessage()
+    }
+    
+    func obseverUserMessage() {
+        guard let uid = FIRAuth.auth()?.currentUser?.uid else {
+            return
+        }
+        let ref = FIRDatabase.database().reference().child("user-messages").child(uid)
+        ref.observeEventType(.ChildAdded, withBlock: { (snapshot) in
+            
+            let messageId = snapshot.key
+            let messageReference = FIRDatabase.database().reference().child("messages").child(messageId)
+            
+            messageReference.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    let message = Message()
+                    message.setValuesForKeysWithDictionary(dictionary)
+                    
+                    if let toId = message.toId {
+                        self.messageDictionary[toId] = message
+                        self.messages = Array(self.messageDictionary.values)
+                        self.messages.sortInPlace({ (message1, message2) -> Bool in
+                            return message1.timestamp?.intValue > message2.timestamp?.intValue
+                        })
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.tableView.reloadData()
+                    })
+                }
+                
+                }, withCancelBlock: nil)
+            
+            }, withCancelBlock: nil)
     }
     
     func observeMessage() {
@@ -35,7 +70,7 @@ class MessagesController: UITableViewController {
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let message = Message()
                 message.setValuesForKeysWithDictionary(dictionary)
-//                self.messages.append(message)
+
                 if let toId = message.toId {
                     self.messageDictionary[toId] = message
                     self.messages = Array(self.messageDictionary.values)
@@ -90,6 +125,12 @@ class MessagesController: UITableViewController {
     }
     
     func setupNavbarWithUser(user: User) {
+        messages.removeAll()
+        messageDictionary.removeAll()
+        tableView.reloadData()
+        
+        obseverUserMessage()
+        
         let titleView = UIView()
         titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
         
