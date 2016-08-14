@@ -53,14 +53,24 @@ class MessagesController: UITableViewController {
                         })
                     }
                     
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.tableView.reloadData()
-                    })
+                    self.timer?.invalidate()
+                    print("We just caneled out timer")
+                    self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
+                    print("schedule a table reload in 0.1 sec")
                 }
                 
                 }, withCancelBlock: nil)
             
             }, withCancelBlock: nil)
+    }
+    
+    var timer: NSTimer?
+    
+    func handleReloadTable() {
+        dispatch_async(dispatch_get_main_queue(), {
+            print("we reloaded the table")
+            self.tableView.reloadData()
+        })
     }
     
     func observeMessage() {
