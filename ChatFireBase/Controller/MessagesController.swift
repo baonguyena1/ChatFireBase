@@ -12,7 +12,7 @@ import Firebase
 class MessagesController: UITableViewController {
     
     var messages = [Message]()
-    var messageDictionary = [String: Message]()
+    var messagesDictionary = [String: Message]()
     let cellId = "cellId"
 
     override func viewDidLoad() {
@@ -26,49 +26,64 @@ class MessagesController: UITableViewController {
         checkIfUserIsLoggedIn()
         
 //        observeMessage()
-        obseverUserMessage()
+        observeUserMessages()
     }
     
-    func obseverUserMessage() {
+    func observeUserMessages() {
         guard let uid = FIRAuth.auth()?.currentUser?.uid else {
             return
         }
+        
         let ref = FIRDatabase.database().reference().child("user-messages").child(uid)
         ref.observeEventType(.ChildAdded, withBlock: { (snapshot) in
             
-            let messageId = snapshot.key
-            let messageReference = FIRDatabase.database().reference().child("messages").child(messageId)
-            
-            messageReference.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            let userId = snapshot.key
+            FIRDatabase.database().reference().child("user-messages").child(uid).child(userId).observeEventType(.ChildAdded, withBlock: { (snapshot) in
                 
-                if let dictionary = snapshot.value as? [String: AnyObject] {
-                    let message = Message()
-                    message.setValuesForKeysWithDictionary(dictionary)
-                    
-                    if let charParnerId = message.chatPartnerId() {
-                        self.messageDictionary[charParnerId] = message
-                        self.messages = Array(self.messageDictionary.values)
-                        self.messages.sortInPlace({ (message1, message2) -> Bool in
-                            return message1.timestamp?.intValue > message2.timestamp?.intValue
-                        })
-                    }
-                    
-                    self.timer?.invalidate()
-                    print("We just caneled out timer")
-                    self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
-                    print("schedule a table reload in 0.1 sec")
-                }
+                let messageId = snapshot.key
+                self.fetchMessageWithMessageId(messageId)
                 
                 }, withCancelBlock: nil)
             
             }, withCancelBlock: nil)
     }
     
+    private func fetchMessageWithMessageId(messageId: String) {
+        let messagesReference = FIRDatabase.database().reference().child("messages").child(messageId)
+        
+        messagesReference.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let message = Message()
+                message.setValuesForKeysWithDictionary(dictionary)
+                
+                if let chatPartnerId = message.chatPartnerId() {
+                    self.messagesDictionary[chatPartnerId] = message
+                }
+                
+                self.attemptReloadOfTable()
+            }
+            
+            }, withCancelBlock: nil)
+    }
+    
+    private func attemptReloadOfTable() {
+        self.timer?.invalidate()
+        
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
+    }
+    
     var timer: NSTimer?
     
     func handleReloadTable() {
+        self.messages = Array(self.messagesDictionary.values)
+        self.messages.sortInPlace({ (message1, message2) -> Bool in
+            
+            return message1.timestamp?.intValue > message2.timestamp?.intValue
+        })
+        
+        //this will crash because of background thread, so lets call this on dispatch_async main thread
         dispatch_async(dispatch_get_main_queue(), {
-            print("we reloaded the table")
             self.tableView.reloadData()
         })
     }
@@ -82,8 +97,8 @@ class MessagesController: UITableViewController {
                 message.setValuesForKeysWithDictionary(dictionary)
 
                 if let toId = message.toId {
-                    self.messageDictionary[toId] = message
-                    self.messages = Array(self.messageDictionary.values)
+                    self.messagesDictionary[toId] = message
+                    self.messages = Array(self.messagesDictionary.values)
                     self.messages.sortInPlace({ (message1, message2) -> Bool in
                         return message1.timestamp?.intValue > message2.timestamp?.intValue
                     })
@@ -136,10 +151,10 @@ class MessagesController: UITableViewController {
     
     func setupNavbarWithUser(user: User) {
         messages.removeAll()
-        messageDictionary.removeAll()
+        messagesDictionary.removeAll()
         tableView.reloadData()
         
-        obseverUserMessage()
+        observeUserMessages()
         
         let titleView = UIView()
         titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)

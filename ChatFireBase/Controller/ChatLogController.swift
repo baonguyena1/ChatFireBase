@@ -24,10 +24,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     var messages = [Message]()
     
     func observeMessages() {
-        guard let uid = FIRAuth.auth()?.currentUser?.uid else {
+        guard let uid = FIRAuth.auth()?.currentUser?.uid, toId = user?.id  else {
             return
         }
-        let userMessagesRef = FIRDatabase.database().reference().child("user-messages").child(uid)
+        let userMessagesRef = FIRDatabase.database().reference().child("user-messages").child(uid).child(toId)
         userMessagesRef.observeEventType(.ChildAdded, withBlock: { (snapshot) in
             
             let messageId = snapshot.key
@@ -206,9 +206,9 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         let ref = FIRDatabase.database().reference().child("messages")
         let childRef = ref.childByAutoId()
         let toId = user!.id!
-        let formId = FIRAuth.auth()!.currentUser!.uid
+        let fromId = FIRAuth.auth()!.currentUser!.uid
         let timeStamp: NSNumber = Int(NSDate().timeIntervalSince1970)
-        let values = ["text": inputTextField.text!, "toId": toId, "fromId": formId, "timestamp": timeStamp]
+        let values = ["text": inputTextField.text!, "toId": toId, "fromId": fromId, "timestamp": timeStamp]
 //        childRef.updateChildValues(values)
         
         Common.makeIndicator(self.view)
@@ -220,13 +220,13 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
             }
             self.inputTextField.text = nil
             
-            let userMessagesRef = FIRDatabase.database().reference().child("user-messages").child(formId)
+            let userMessagesRef = FIRDatabase.database().reference().child("user-messages").child(fromId).child(toId)
             
             let messageId = childRef.key
             userMessagesRef.updateChildValues([messageId: 1])
             
-            let recipientUserMessageRef = FIRDatabase.database().reference().child("user-messages").child(toId)
-            recipientUserMessageRef.updateChildValues([messageId: 1])
+            let recipientUserMessagesRef = FIRDatabase.database().reference().child("user-messages").child(toId).child(fromId)
+            recipientUserMessagesRef.updateChildValues([messageId: 1])
             
             Common.hideIndicator()
         }
