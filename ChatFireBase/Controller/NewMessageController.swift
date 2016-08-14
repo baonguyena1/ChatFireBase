@@ -11,7 +11,7 @@ import Firebase
 
 class NewMessageController: UITableViewController {
     
-    var messagesContrller: MessagesController?
+    var messagesController: MessagesController?
     
     let cellId = "cellId"
     var users = [User]()
@@ -75,7 +75,7 @@ class NewMessageController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         dismissViewControllerAnimated(true) {
             let user = self.users[indexPath.row]
-            self.messagesContrller?.showChatControllerForUser(user)
+            self.messagesController?.showChatControllerForUser(user)
         }
     }
 

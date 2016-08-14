@@ -115,7 +115,7 @@ class MessagesController: UITableViewController {
     
     func handleNewMessage() {
         let newMessageController = NewMessageController()
-        newMessageController.messagesContrller = self
+        newMessageController.messagesController = self
         let navigationController = UINavigationController(rootViewController: newMessageController)
         presentViewController(navigationController, animated: true, completion: nil)
     }
